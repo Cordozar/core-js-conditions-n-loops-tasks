@@ -21,8 +21,12 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  if (number >= 0) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -38,8 +42,20 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  let max;
+
+  if (a > b) {
+    max = a;
+  } else {
+    max = b;
+  }
+
+  if (max > c) {
+    return max;
+  }
+
+  return c;
 }
 
 /**
@@ -100,8 +116,57 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let result = '';
+
+  switch (Math.floor(num / 10)) {
+    case 3:
+      result += 'XXX';
+      break;
+    case 2:
+      result += 'XX';
+      break;
+    case 1:
+      result += 'X';
+      break;
+    default:
+      break;
+  }
+
+  switch (num % 10) {
+    case 1:
+      result += 'I';
+      break;
+    case 2:
+      result += 'II';
+      break;
+    case 3:
+      result += 'III';
+      break;
+    case 4:
+      result += 'IV';
+      break;
+    case 5:
+      result += 'V';
+      break;
+    case 6:
+      result += 'VI';
+      break;
+    case 7:
+      result += 'VII';
+      break;
+    case 8:
+      result += 'VIII';
+      break;
+    case 9:
+      result += 'IX';
+      break;
+
+    default:
+      break;
+  }
+
+  return result;
 }
 
 /**
@@ -119,8 +184,57 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  const numStr = numberStr.toString();
+
+  let result = '';
+
+  for (let i = 0; i < numStr.length; i += 1) {
+    const digit = numStr[i];
+
+    switch (digit) {
+      case '0':
+        result += 'zero';
+        break;
+      case '1':
+        result += 'one';
+        break;
+      case '2':
+        result += 'two';
+        break;
+      case '3':
+        result += 'three';
+        break;
+      case '4':
+        result += 'four';
+        break;
+      case '5':
+        result += 'five';
+        break;
+      case '6':
+        result += 'six';
+        break;
+      case '7':
+        result += 'seven';
+        break;
+      case '8':
+        result += 'eight';
+        break;
+      case '9':
+        result += 'nine';
+        break;
+      case '.':
+        result += 'point';
+        break;
+      case '-':
+        result = `minus ${result}`;
+        break;
+      default:
+        result += digit;
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -153,8 +267,14 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -172,8 +292,16 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  const numToStr = `${num}`;
+
+  for (let i = 0; i < numToStr; i += 1) {
+    if (numToStr[i] === `${digit}`) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 /**
@@ -189,8 +317,25 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  for (let i = 0; i < arr.length; i += 1) {
+    let leftSum = 0;
+    let rightSum = 0;
+
+    for (let j = 0; j < i; j += 1) {
+      leftSum += arr[j];
+    }
+
+    for (let k = i + 1; k < arr.length; k += 1) {
+      rightSum += arr[k];
+    }
+
+    if (leftSum === rightSum) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**

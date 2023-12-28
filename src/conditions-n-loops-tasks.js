@@ -98,8 +98,20 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  if (
+    a + b > c &&
+    b + c > a &&
+    a + c > b &&
+    a > 0 &&
+    b > 0 &&
+    c > 0 &&
+    (a === b || b === c || a === c)
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
 /**
@@ -187,54 +199,60 @@ function convertToRomanNumerals(num) {
 function convertNumberToString(numberStr) {
   const numStr = numberStr.toString();
 
-  let result = '';
+  let str = '';
 
   for (let i = 0; i < numStr.length; i += 1) {
     const digit = numStr[i];
 
     switch (digit) {
       case '0':
-        result += 'zero';
+        str += 'zero ';
         break;
       case '1':
-        result += 'one';
+        str += 'one ';
         break;
       case '2':
-        result += 'two';
+        str += 'two ';
         break;
       case '3':
-        result += 'three';
+        str += 'three ';
         break;
       case '4':
-        result += 'four';
+        str += 'four ';
         break;
       case '5':
-        result += 'five';
+        str += 'five ';
         break;
       case '6':
-        result += 'six';
+        str += 'six ';
         break;
       case '7':
-        result += 'seven';
+        str += 'seven ';
         break;
       case '8':
-        result += 'eight';
+        str += 'eight ';
         break;
       case '9':
-        result += 'nine';
+        str += 'nine';
         break;
       case '.':
-        result += 'point';
+        str += 'point ';
         break;
       case '-':
-        result = `minus ${result}`;
+        str = `minus `;
         break;
       default:
-        result += digit;
+        break;
     }
   }
 
-  return result;
+  let res = '';
+
+  for (let i = 0; i < str.length - 1; i += 1) {
+    res += str[i];
+  }
+
+  return res;
 }
 
 /**
@@ -249,8 +267,14 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  let reverseStr = '';
+
+  for (let i = str.length - 1; i >= 0; i -= 1) {
+    reverseStr += str[i];
+  }
+
+  return str === reverseStr;
 }
 
 /**

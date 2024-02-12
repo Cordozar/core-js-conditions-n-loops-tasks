@@ -201,62 +201,71 @@ function convertToRomanNumerals(num) {
  *  '1950.2'  => 'one nine five zero point two'
  */
 function convertNumberToString(numberStr) {
-  const numStr = numberStr.toString();
+  const numStr = String(numberStr);
 
-  let str = '';
+  let result = '';
 
   for (let i = 0; i < numStr.length; i += 1) {
-    const digit = numStr[i];
+    const currentChar = numStr[i];
 
-    switch (digit) {
+    switch (currentChar) {
       case '0':
-        str += 'zero ';
+        result += 'zero ';
         break;
       case '1':
-        str += 'one ';
+        result += 'one ';
         break;
       case '2':
-        str += 'two ';
+        result += 'two ';
         break;
       case '3':
-        str += 'three ';
+        result += 'three ';
         break;
       case '4':
-        str += 'four ';
+        result += 'four ';
         break;
       case '5':
-        str += 'five ';
+        result += 'five ';
         break;
       case '6':
-        str += 'six ';
+        result += 'six ';
         break;
       case '7':
-        str += 'seven ';
+        result += 'seven ';
         break;
       case '8':
-        str += 'eight ';
+        result += 'eight ';
         break;
       case '9':
-        str += 'nine';
-        break;
-      case '.':
-        str += 'point ';
+        result += 'nine ';
         break;
       case '-':
-        str = `minus `;
+        result = `minus ${result}`;
+        break;
+      case '.':
+        result += 'point ';
+        break;
+      case ',':
+        result += 'point ';
         break;
       default:
-        break;
+        result += `${currentChar} `;
     }
   }
 
-  let res = '';
+  let result1 = '';
 
-  for (let i = 0; i < str.length - 1; i += 1) {
-    res += str[i];
+  for (let i = 0; i < result.length; i += 1) {
+    if (i === 0 && result[i] === ' ') {
+      result1 += '';
+    } else if (i === result.length - 1 && result[i] === ' ') {
+      result1 += '';
+    } else {
+      result1 += result[i];
+    }
   }
 
-  return res;
+  return result1;
 }
 
 /**
@@ -468,20 +477,8 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(arr) {
-  const copyArr = [...arr];
-
-  for (let j = copyArr.length - 1; j > 0; j -= 1) {
-    for (let i = 0; i < j; i += 1) {
-      if (copyArr[i] > copyArr[i + 1]) {
-        const temp = copyArr[i];
-        copyArr[i] = copyArr[i + 1];
-        copyArr[i + 1] = temp;
-      }
-    }
-  }
-
-  return copyArr;
+function sortByAsc(/* arr */) {
+  throw new Error('Not implemented');
 }
 
 /**
@@ -523,7 +520,7 @@ function shuffleChar(/* str, iterations */) {
  * @returns {number} The nearest larger number, or original number if none exists.
  */
 function getNearestBigger(number) {
-  const digits = Array.from(String(number), Number);
+  const digits = Array.from(`${number}`, Number);
 
   let i = digits.length - 2;
   while (i >= 0 && digits[i] >= digits[i + 1]) {
@@ -541,15 +538,20 @@ function getNearestBigger(number) {
 
   [digits[i], digits[j]] = [digits[j], digits[i]];
 
-  const rightPart = digits.slice(i + 1).sort((a, b) => a - b);
+  const rightPart = [];
+  for (let k = i + 1; k < digits.length; k += 1) {
+    rightPart.push(digits[k]);
+  }
+  rightPart.sort((a, b) => a - b);
 
-  const result = parseInt(
-    digits
-      .slice(0, i + 1)
-      .concat(rightPart)
-      .join(''),
-    10
-  );
+  let result = 0;
+  for (let k = 0; k <= i; k += 1) {
+    result = result * 10 + digits[k];
+  }
+
+  for (let k = 0; k < rightPart.length; k += 1) {
+    result = result * 10 + rightPart[k];
+  }
 
   return result;
 }
